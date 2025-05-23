@@ -1,0 +1,28 @@
+name = "backend"
+main = "src/index.ts"
+compatibility_date = "2024-05-23"
+
+# Configure the Cloudflare Workers environment
+workers_dev = true
+
+# Configure environment variables
+[vars]
+JWT_PASSWORD = "whotehellareyou"
+
+# For local development, environment variables are loaded from .dev.vars
+# This keeps sensitive credentials out of your codebase
+
+# This tells wrangler to generate a .env.local file from .dev.vars for Prisma
+[env.local]
+vars = { }  # Local environment-specific variables
+
+# The DATABASE_URL and DIRECT_URL are set from environment variables or .dev.vars
+# to avoid exposing credentials in the repository
+
+# Use .dev.vars for local development (automatically loaded by wrangler)
+# Format:
+# DATABASE_URL=prisma://accelerate.prisma-data.net/?api_key=your_api_key
+# DIRECT_URL=postgres://username:password@host:port/database?sslmode=require
+
+# Add compatibility flags as needed
+compatibility_flags = ["nodejs_compat"] 

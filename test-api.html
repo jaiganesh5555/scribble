@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>API Test</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            line-height: 1.6;
+        }
+        
+        button {
+            margin: 10px 0;
+            padding: 8px 12px;
+            cursor: pointer;
+        }
+        
+        pre {
+            background: #f4f4f4;
+            padding: 10px;
+            border-radius: 5px;
+        }
+        
+        .result {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Backend API Test</h1>
+
+    <div>
+        <h2>Health Check</h2>
+        <button onclick="testHealthCheck()">Test Health Check</button>
+        <pre id="health-result"></pre>
+    </div>
+
+    <div>
+        <h2>Sign Up</h2>
+        <button onclick="testSignUp()">Test Sign Up</button>
+        <pre id="signup-result"></pre>
+    </div>
+
+    <div>
+        <h2>Sign In</h2>
+        <button onclick="testSignIn()">Test Sign In</button>
+        <pre id="signin-result"></pre>
+    </div>
+
+    <script>
+        const BACKEND_URL = 'https://backend.gjai8587.workers.dev';
+
+        async function testHealthCheck() {
+            const resultElement = document.getElementById('health-result');
+            resultElement.textContent = 'Loading...';
+
+            try {
+                const response = await fetch(`${BACKEND_URL}/`, {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                });
+
+                const data = await response.json();
+                resultElement.textContent = JSON.stringify(data, null, 2);
+            } catch (error) {
+                resultElement.textContent = `Error: ${error.message}`;
+            }
+        }
+
+        async function testSignUp() {
+            const resultElement = document.getElementById('signup-result');
+            resultElement.textContent = 'Loading...';
+
+            try {
+                const response = await fetch(`${BACKEND_URL}/api/signup`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        email: 'test@example.com',
+                        password: 'test123',
+                        name: 'Test User'
+                    })
+                });
+
+                const data = await response.json();
+                resultElement.textContent = JSON.stringify(data, null, 2);
+            } catch (error) {
+                resultElement.textContent = `Error: ${error.message}`;
+            }
+        }
+
+        async function testSignIn() {
+            const resultElement = document.getElementById('signin-result');
+            resultElement.textContent = 'Loading...';
+
+            try {
+                const response = await fetch(`${BACKEND_URL}/api/signin`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        email: 'test@example.com',
+                        password: 'test123'
+                    })
+                });
+
+                const data = await response.json();
+                resultElement.textContent = JSON.stringify(data, null, 2);
+            } catch (error) {
+                resultElement.textContent = `Error: ${error.message}`;
+            }
+        }
+    </script>
+</body>
+
+</html>

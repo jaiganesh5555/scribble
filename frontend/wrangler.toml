@@ -1,0 +1,6 @@
+name = "scribble-frontend"
+compatibility_date = "2025-02-13"
+
+[site]
+bucket = "./dist"
+pages_build_output_dir = "dist" 
